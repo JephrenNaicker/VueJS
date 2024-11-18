@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css">
+  <style type="text/css">
+    body {
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+      font-size: 16px;
+      background-color: #f4f4f9;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border-left: 5px solid;
+    }
+
+    .high {
+      border-color: red;
+    }
+
+    .medium {
+      border-color: orange;
+    }
+
+    .low {
+      border-color: green;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #bbb;
+    }
+
+    .remove-button {
+      color: red;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-size: 16px;
+    }
+  </style>
+  <script src="https://unpkg.com/vue@3.4.0"></script>
+</head>
+
+<body>
+  <div id="app">
+    <form @submit.prevent="addNewTask">
+      <!-- Adding tasks form -->
+      <input placeholder="Add new task" ref="addTask" v-model="newtask">
+      <select v-model="newPriorty">
+        <option disabled value="" >Select priority</option>
+        <option>High</option>
+        <option>Medium</option>
+        <option>Low</option>
+      </select>
+      <button type="submit">Add Task</button>
+    </form>
+
+    <!-- Task filtering -->
+    <input placeholder="Filter tasks..." v-model="txtfilterTask">
+
+    <!-- If there no tasks -->
+    <div v-if="taskArrayMock.length===0">
+      <p>No tasks found. Try changing the filter or add some tasks!</p>
+    </div>
+
+    <div v-else>
+      <h3>Your Tasks</h3>
+      <!-- This is a list of tasks -->
+
+      <div v-for="(item,index) in filterTask" :key="item.id"
+      :class="{'task':true, 
+      'completed':item.done,
+      [item.priorty.toLowerCase()]:true}">
+        <div>
+          <!-- Is task done? -->
+          <input type="checkbox" @click="toogleDone(item)" :class="{'completed':item.done}">
+          <!-- Task description -->
+          
+          <span style="padding: 10px;">{{item.description}}</span>
+        </div>
+        <!-- Removing a task -->
+        <button class="remove-button" @click="removeTask(index)">✖</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp,onMounted,ref,watch,computed } = Vue;
+
+    const App = {
+      setup() {
+
+
+      const addTask = ref(null);
+      const newtask = ref('');
+      const newPriorty = ref('');
+      const txtfilterTask = ref('');
+
+      const taskArrayMock = ref(
+       JSON.parse(
+                   localStorage.getItem('taskKey')?? '[]'
+                 )
+      );
+      const toogleDone=(item)=>{
+       item.done=!item.done
+       console.log("Done Toogle");
+      }
+      const addNewTask = () =>
+      {
+        if(newtask.value !== '' && newPriorty.value!=='')
+        {
+         const task = {
+          id: taskArrayMock.value.length + 1,
+          description: newtask.value,
+          priorty : newPriorty.value,
+          done: false
+         }; 
+
+         taskArrayMock.value.push(task);
+        }
+        newtask.value='';
+        newPriorty.value='';
+      };
+
+const removeTask=(index)=>
+{
+  taskArrayMock.value.splice(index,1);
+  console.log('This has been removed');
+};
+
+const filterTask=computed(
+   ()=>taskArrayMock.value.filter(items=>items.description.toLowerCase()
+   .includes(txtfilterTask.value.toLowerCase()))
+);
+
+      onMounted(()=>{
+        // addTask.value.focus();
+      });
+      // watch(newtask,(newValue,oldValue)=>{
+      // console.log(`New Value is ${newValue},old value was ${oldValue}`);
+      // });
+
+   watch(taskArrayMock,()=>{
+   localStorage.setItem('taskKey',
+   JSON.stringify(taskArrayMock.value))
+   },{deep:true});
+
+        return {
+            addTask,taskArrayMock,
+            toogleDone,
+            newtask,
+            newPriorty,
+            addNewTask,
+            removeTask,
+            txtfilterTask,
+            filterTask
+        }
+      },
+    };
+
+    createApp(App).mount('#app');
+  </script>
+</body>
+
+</html>
