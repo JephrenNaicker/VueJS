@@ -1,47 +1,23 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
+
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <main class="container mx-auto my-8 space-y-8">
+   <h1 class="text-4xl">
+    Event Booking App
+   </h1>
+   <h2 class="text-2xl font-medium">All Events</h2>
+<section class="grid grid-cols-2 gap-8">
+  <EventCard v-for="i in 8" :key="i" 
+  title="Vue Booking" 
+  when="2024-11-22" 
+  description="Booking in View"
+  @register="console.log('Register')"/>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
+</section>
+   <h2 class="text-2xl font-medium">Your Bookings</h2>
   </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<script setup>
+import EventCard from './components/EventCard.vue';
+</script>
