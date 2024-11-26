@@ -7,16 +7,16 @@
    </h1>
    <h2 class="text-2xl font-medium">All Events</h2>
 <section class="grid grid-cols-2 gap-8">
-  <EventCard v-for="(item,Index) in allEventArray" :key="item.id" 
-   title= {{ item.title }}
-  when= {{ item.when }}
-  description= {{ item.description }}
+  <EventCard v-for="(item,index) in events":key="item.id" 
+   :title=item.title
+   :when= item.date
+   :description= item.description
   @register="console.log('Register')"/>
 
 </section>
    <h2 class="text-2xl font-medium">Your Bookings</h2>
    <section class="grid grid-cols-1 gap-4">
-    <BookingItem v-for="(i in 8)" :key="i">
+    <BookingItem v-for="i in 8" :key="i">
 
    </BookingItem>
    </section>
@@ -25,36 +25,18 @@
 </template>
 
 <script setup>
+import {ref,onMounted} from 'vue'
 import BookingItem from './components/BookingItem.vue';
 import EventCard from './components/EventCard.vue';
-const allEventArray = ref([]);
 
-allEventArray =({
-id:1,
-title:'Rail Conference',
-when :'2024-05-20',
-description :'Join Us on this insightful talks'
-},
+const events = ref([]);
+const fetchEvents = async ()=>
 {
-  id:2,
-title:'Vue Conference',
-when :'2024-11-01',
-description :'Join Us on this insightful talks' 
-},
-{
-id:3,
-title:'PHP Conference',
-when :'2024-11-20',
-description :'Join Us on this insightful talks'
-}
-,
-{
-id:4,
-title:'Rust Conference',
-when :'2024-07-05',
-description :'Join Us on this insightful talks'
-});
+  const response = await fetch('http://localhost:3001/events');
+  events.value = await response.json();
+  console.log(events.value);
+};
 
+onMounted(()=>fetchEvents());
 
-return allEventArray
 </script>

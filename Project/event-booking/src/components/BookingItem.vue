@@ -9,5 +9,5 @@
 
 <script setup>
 import RoundButton from './RoundButton.vue';
-import SelectionCard from './SelectionCard.vu e';
+import SelectionCard from './SelectionCard.vue';
 </script>
