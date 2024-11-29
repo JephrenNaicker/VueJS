@@ -1,7 +1,7 @@
 <template>
     <SelectionCard>
         <div class="flex justify-between">
-            <div>Booking to vue Conference</div>
+            <div>{{ title }}</div>
             <RoundButton style-variant="danger">Cancel</RoundButton>
         </div>
     </SelectionCard>
@@ -10,4 +10,8 @@
 <script setup>
 import RoundButton from './RoundButton.vue';
 import SelectionCard from './SelectionCard.vue';
+
+defineProps({
+    title : String
+});
 </script>
