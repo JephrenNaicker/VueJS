@@ -2,7 +2,8 @@
     <SelectionCard>
         <div class="flex justify-between">
             <div>{{ title }}</div>
-            <RoundButton style-variant="danger">Cancel</RoundButton>
+            <div>{{ status }}</div>
+            <RoundButton style-variant="danger" @click="$emit('cancel')">Cancel</RoundButton>
         </div>
     </SelectionCard>
 </template>
@@ -12,6 +13,10 @@ import RoundButton from './RoundButton.vue';
 import SelectionCard from './SelectionCard.vue';
 
 defineProps({
-    title : String
+    title : String,
+    status: String,
 });
+
+defineEmits([
+    'cancel']);
 </script>

@@ -1,0 +1,67 @@
+<template>
+    <template v-if="error">
+        <SelectionCard>
+            <div class="space-y-4 items-center flex flex-col">
+               <div class="text-red-500" v-for="(item,Index) in error">
+                   {{ item }}
+               </div>
+            </div>
+        </SelectionCard>
+    </template>
+    <template v-else>
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <template v-if="!loading">
+                <template v-if="events.length">
+                    <EventCard v-for="(item, index) in events" :key="item.id" :title=item.title :when=item.date
+                        :description=item.description @register="$emit('register', item)" />
+
+                </template>
+                <template v-else>
+                    <div class="col-span-2">
+                        No Event Yet
+                    </div>
+                </template>
+
+            </template>
+            <template v-else>
+                <LoadingEventCard v-for="i in 4" :key="i">
+
+                </LoadingEventCard>
+            </template>
+
+        </section>
+    </template>
+</template>
+<script setup>
+import { ref, onMounted } from 'vue'
+import LoadingEventCard from './LoadingEventCard.vue';
+import EventCard from './EventCard.vue';
+import SelectionCard from './SelectionCard.vue';
+
+
+defineEmits(['register']);
+
+const events = ref([]);
+const loading = ref(false);
+
+const error = ref(null);
+
+const fetchEvents = async () => {
+
+    loading.value = true;
+    try {
+        const response = await fetch('http://localhost:3001/events');
+        events.value = await response.json();
+        console.log(events.value);
+    } catch (e) {
+        error.value = e;
+    }
+    finally {
+        loading.value = false;
+    }
+};
+
+onMounted(() => { fetchEvents() });//check here
+
+</script>

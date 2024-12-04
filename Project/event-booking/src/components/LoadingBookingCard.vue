@@ -1,20 +1,17 @@
-
 <template>
-    <RoundCard class="animate-pulse">
-  <div class="p-4 border-b border-gray-200 h-8
-  bg-gray-300"></div>
-  <div class="p-4 border-b border-gray-200 h-6
-  bg-gray-300"></div>  
-  <div class="p-4 border-b h-6
-  bg-gray-300"></div>
-  <div class="flex justify-end p-4">
-  <div>
-      <div class="h-8 w-24 bg-gray-300 rounded-full"></div>
-  </div>
-  </div>
-    </RoundCard>
- </template>
- 
- <script setup lang="ts">
- import RoundCard from './RoundCard.vue';
- </script>
+  <SectionCard class="animate-pulse">
+    <div class="flex justify-between items-center">
+      <div class="flex space-x-4 w-full">
+        <div class="h-4 bg-gray-300 rounded w-1/3"></div>
+        <div class="h-4 bg-gray-300 rounded w-24"></div>
+      </div>
+      <div class="h-8 w-20 bg-gray-300 rounded-full"></div>
+    </div>
+  </SectionCard>
+</template>
+
+
+<script setup lang="ts">
+import RoundCard from './RoundCard.vue';
+import SelectionCard from './SelectionCard.vue';
+</script>
