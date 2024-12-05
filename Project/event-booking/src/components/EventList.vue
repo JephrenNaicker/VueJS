@@ -10,7 +10,6 @@
     </template>
     <template v-else>
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
             <template v-if="!loading">
                 <template v-if="events.length">
                     <EventCard v-for="(item, index) in events" :key="item.id" :title=item.title :when=item.date
@@ -38,7 +37,6 @@ import { ref, onMounted } from 'vue'
 import LoadingEventCard from './LoadingEventCard.vue';
 import EventCard from './EventCard.vue';
 import SelectionCard from './SelectionCard.vue';
-
 
 defineEmits(['register']);
 
