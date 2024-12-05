@@ -12,6 +12,5 @@
 
 
 <script setup lang="ts">
-import RoundCard from './RoundCard.vue';
-import SelectionCard from './SelectionCard.vue';
+import SectionCard from './SectionCard.vue';
 </script>

@@ -15,5 +15,4 @@
 
 <script setup>
 import RoundCard from './RoundCard.vue';
-
 </script>

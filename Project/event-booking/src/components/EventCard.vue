@@ -1,5 +1,5 @@
 <template>
-  <SelectionCard>
+  <SectionCard>
     <template #header>
       {{ title }}
     </template>
@@ -18,14 +18,14 @@
       </div>
     </template>
 
-  </SelectionCard>
+  </SectionCard>
 
 
 </template>
 
 <script setup>
 import RoundButton from './RoundButton.vue';
-import SelectionCard from './SelectionCard.vue';
+import SectionCard from './SectionCard.vue';
 defineProps({
   title: String,
   when: String,
