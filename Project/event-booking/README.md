@@ -1,6 +1,9 @@
 # event-booking
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a Vue 3 in Vite Project.
+As this uses a local server to fetch API.
+Then store it in a local db json file.
+This also uses tailwind  css
 
 ## Recommended IDE Setup
 
@@ -33,3 +36,9 @@ npm run build
 ```sh
 npm run lint
 ```
+
+npm run sever
+
+view to install tailwind:
+
+https://www.fadocodecamp.com/posts/adding-tailwind-vite-vue
