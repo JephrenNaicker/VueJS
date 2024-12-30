@@ -22,7 +22,7 @@ const removeNotification = (id: number) => {
         filter((n) => n.id !== id)
 }
 
-export function INotifications() {
+export function useNotifications() {
     return {
         notifications,
         addNotification,

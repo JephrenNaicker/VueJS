@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="text-2xl mb-4">Privacy</h2>
-        <form class="space-y-4 mx-auto">
+        <form class="space-y-4 mx-auto"  @submit.prevent="save">
             <div class="flex items-center gap-2">
                 <label>Search Engine Indexing: </label>
                 <input type="checkbox" v-model="privacy.searchEngineIndexing"/>
@@ -21,8 +21,13 @@
 
 
 <script setup lang="ts">
+import { useNotifications } from '@/composables/useNotifications';
 import { useSettings } from '@/composables/useSettings';
-import { ref } from 'vue';
 
 const {privacy} = useSettings();
+const{addNotification} =useNotifications();
+const save = ()=>
+{
+    addNotification(`Settings was saved`);
+}
 </script>
