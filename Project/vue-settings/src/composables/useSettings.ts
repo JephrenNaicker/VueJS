@@ -37,9 +37,12 @@ const general = ref<IGeneralSettings>(
     })
 );
 
+const watcher = <T extends SettingsKey>(key : T)=>(value: SettingsMap[T])=>
+{
+    localStorage.setItem(key, JSON.stringify(value));
+}
 
-
-watch(general, (value) => localStorage.setItem('general', JSON.stringify(value)), { deep: true })
+watch(general,watcher('general') ,{ deep: true });
 
 interface INotificationsSettings {
     email: boolean;
@@ -52,6 +55,8 @@ const notifications = ref<INotificationsSettings>(
         sms: false
     })
 );
+
+watch(notifications,watcher('notifications') ,{ deep: true })
 
 interface IPrivacySettings {
     visibility: string;
@@ -68,6 +73,8 @@ const privacy = ref<IPrivacySettings>(
         }
     )
 );
+
+watch(privacy,watcher('privacy') ,{ deep: true });
 
 export function useSettings() {
     return {
