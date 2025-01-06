@@ -5,6 +5,7 @@ import AddRecipeView from '@/views/AddRecipeView.vue'
 import RecipeView from '@/views/RecipeView.vue'
 import FavoritesView from '@/views/FavoritesView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import EditRecipeView from '@/views/EditRecipeView.vue'
 
 
 const router = createRouter({
@@ -37,6 +38,12 @@ const router = createRouter({
       name: 'recipe',
       component: RecipeView,
       alias:'/meal/:id'
+    },
+    {
+      path: '/recipe/:id/edit',
+      name: 'edit-recipe',
+      component: EditRecipeView,
+      
     },
     {
       path: '/:pathMatch(.*)',
