@@ -4,7 +4,7 @@
       <div class="bg-gray-100 p-3 rounded-lg min-w-[250px] flex flex-col" v-for="list in listsArr" :key="list.id">
         <h2 class="font-medium mb-2">{{ list.title }}</h2>
       
-        <Draggable :list="list.cards" group="cards">
+        <Draggable :list="list.cards" group="cards" item-key="id ">
           <template #item="{element}">  <div class="bg-white p-2 my-2 rounded shadow cursor-pointer">
           <span class="text-sm font-medium">{{ element.title }}</span>
           <p class="text-xs text-gray-400">
@@ -13,28 +13,30 @@
         </div></template>
         </Draggable>
         <button
-          class="w-full bg-transparent rounded hover:bg-white text-gray-500 p-2 text-left mt-2 text-sm font-medium">
+          class="w-full bg-transparent rounded hover:bg-white text-gray-500 p-2 text-left mt-2 text-sm font-medium" @click="openModal">
           + Add Card
         </button>
       </div>
     </div>
+    <ModalDialogue :is-open="isModalOpen" @close="closeModal"></ModalDialogue>
   </main>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import Draggable from 'vuedraggable';
+import type {List } from '@/types.ts'
+import ModalDialogue from './components/ModalDialogue.vue';
 
-interface Card {
-  id: number,
-  title: string,
-  description: string
+
+const isModalOpen = ref(false);
+
+const openModal = ()=>{
+  isModalOpen.value = true;
 }
 
-interface List {
-  id: number,
-  title: string,
-  cards: Card[]
+const closeModal = ()=>{
+  isModalOpen.value = false;
 }
 
 const listsArr = reactive<List[]>([
