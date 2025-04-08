@@ -20,3 +20,6 @@ Drag&Drop handling
 Optimistic UIs - build apps that provide great user experience
 
 Build custom complex components, like Modal Dialog with full understanding of inner workings
+
+How to add Tailwind CSS to a Vite-based Vue project?
+https://www.fadocodecamp.com/posts/adding-tailwind-vite-vue
